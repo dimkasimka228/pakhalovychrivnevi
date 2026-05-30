@@ -52,4 +52,5 @@ export class ProductsController {
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.productsService.remove(id);
   }
+  
 }

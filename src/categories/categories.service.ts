@@ -2,6 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Category } from './category.entity';
+import { CreateCategoryDto } from './dto/create-category.dto';
+import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Injectable()
 export class CategoriesService {
@@ -24,17 +26,17 @@ export class CategoriesService {
     return category;
   }
 
-  async create(data: Partial<Category>): Promise<Category> {
-    const category = this.categoryRepo.create(data);
+  async create(createCategoryDto: CreateCategoryDto): Promise<Category> {
+    const category = this.categoryRepo.create(createCategoryDto);
     return this.categoryRepo.save(category);
   }
 
   async update(
     id: number,
-    data: Partial<Category>,
+    updateCategoryDto: UpdateCategoryDto,
   ): Promise<Category> {
     const category = await this.findOne(id);
-    Object.assign(category, data);
+    Object.assign(category, updateCategoryDto);
     return this.categoryRepo.save(category);
   }
 
