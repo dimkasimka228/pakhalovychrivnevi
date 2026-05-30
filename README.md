@@ -61,3 +61,29 @@ ParsedHtml        : System.__ComObject
 RawContentLength  : 2
 
 
+### Тест створення категорії
+```Plaintext
+id name
+-- ----
+1  Electronics
+<вивід curl POST /api/categories>
+```
+
+### Тест створення продукту
+```Plaintext
+id    : 1
+name  : Laptop
+price : 1200
+<вивід curl POST /api/products>
+```
+### Тест отримання продуктів
+```Plaintext
+id    : 1
+name  : Laptop
+price : 1200
+<вивід curl GET /api/products>
+```
+### Тест 404
+```{"message":"Product with ID 999 not found","error":"Not Found","statusCode":404}
+<вивід curl GET /api/products/999>
+```
