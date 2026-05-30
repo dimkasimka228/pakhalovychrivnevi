@@ -1,6 +1,6 @@
 ## Student
-- Name: ВАШЕ ПІБ
-- Group: ВАША ГРУПА
+- Name: Пахалович Д.О
+- Group: 232/2 он
 
 ## Практичне заняття №3 — CRUD REST API для MiniShop
 
