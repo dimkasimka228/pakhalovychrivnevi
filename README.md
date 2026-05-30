@@ -43,26 +43,31 @@ docker compose up --build
 ```
  
 ### Тест валідації — порожнє ім'я категорії
-```{"message":["name must be longer than or equal to 2 characters"],"error":"Bad Request","statusCode":400}
+```
+{"message":["name must be longer than or equal to 2 characters"],"error":"Bad Request","statusCode":400}
 <вивід curl POST /api/categories з {"name": ""}>
 ```
  
 ### Тест валідації — від'ємна ціна продукту
-```{"message":["price must not be less than 0.01"],"error":"Bad Request","statusCode":400}
+```
+{"message":["price must not be less than 0.01"],"error":"Bad Request","statusCode":400}
 <вивід curl POST /api/products з {"name": "Test", "price": -5}>
 ```
  
 ### Тест валідації — зайве поле
-```{"message":["property isAdmin should not exist"],"error":"Bad Request","statusCode":400}
+```
+{"message":["property isAdmin should not exist"],"error":"Bad Request","statusCode":400}
 <вивід curl POST /api/categories з {"name": "Test", "isAdmin": true}>
 ```
  
 ### Тест TrimPipe
-```{"id": 1, "name": "Trimmed", "description": null}
+```
+{"id": 1, "name": "Trimmed", "description": null}
 <вивід curl POST /api/categories з {"name": "  Trimmed  "}>
 ```
  
 ### Тест валідне створення продукту
-```{"id": 1, "name": "iPhone 16", "price": 999.99, "stock": 50, "category": {"id": 1}}
+```
+{"id": 1, "name": "iPhone 16", "price": 999.99, "stock": 50, "category": {"id": 1}}
 <вивід curl POST /api/products з валідними даними>
 ```
