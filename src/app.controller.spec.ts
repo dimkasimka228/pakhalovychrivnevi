@@ -2,6 +2,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
+// НЕ імпортуйте describe, it, beforeEach з node:test! 
+// Вони доступні глобально завдяки Jest.
+
 describe('AppController', () => {
   let appController: AppController;
 
@@ -20,3 +23,5 @@ describe('AppController', () => {
     });
   });
 });
+
+// Use Jest's global expect — do not redefine it here.
