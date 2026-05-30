@@ -1,11 +1,10 @@
 ## Student
-- Name: Пахалович Д.О
-- Group: 232он
+- Name: ВАШЕ ПІБ
+- Group: ВАША ГРУПА
 
 ## Практичне заняття №3 — CRUD REST API для MiniShop
 
 ### Структура репозиторію
-```
 .
 ├── src/
 │   ├── categories/
@@ -19,62 +18,46 @@
 │   │   ├── products.service.ts
 │   │   └── products.controller.ts
 │   ├── migrations/
-│   │   ├── CreateTables1716924800000.ts
-│   │   └── 1700000002-AddIsActiveToProducts.ts
+│   │   ├── 1716924800000_CreateTables.ts
+│   │   └── 1716924800001_AddIsActiveToProducts.ts
 │   ├── data-source.ts
 │   └── app.module.ts
 ├── Dockerfile
 ├── docker-compose.yml
 └── README.md
-```
+
 
 ### Запуск проекту
 ```bash
 cp .env.example .env
 docker compose up --build
-```
 
-### API Endpoints
-| Method | URL | Опис |
-|--------|-----|------|
-| GET | /api/categories | Список категорій |
-| GET | /api/categories/:id | Одна категорія |
-| POST | /api/categories | Створити категорію |
-| PATCH | /api/categories/:id | Оновити категорію |
-| DELETE | /api/categories/:id | Видалити категорію |
-| GET | /api/products | Список продуктів |
-| GET | /api/products/:id | Один продукт |
-| POST | /api/products | Створити продукт |
-| PATCH | /api/products/:id | Оновити продукт |
-| DELETE | /api/products/:id | Видалити продукт |
+# docker compose exec postgres psql -U nestuser -d nestdb -c "\dt")
 
-### Перевірка міграцій
-```text
-<вивід docker compose exec postgres psql -U nestuser -d nestdb -c "\dt">
-```
+ Schema |    Name    | Type  |  Owner   
+--------+------------+-------+----------
+ public | categories | table | nestuser
+ public | migrations | table | nestuser
+ public | products   | table | nestuser
+(3 rows): 
+# curl http://localhost:3000/api/products% 
 
-### Приклади запитів
+StatusCode        : 200
+StatusDescription : OK
+Content           : []
+RawContent        : HTTP/1.1 200 OK
+                    Connection: keep-alive
+                    Keep-Alive: timeout=5
+                    Content-Length: 2
+                    Content-Type: application/json; charset=utf-8
+                    Date: Sat, 30 May 2026 10:16:50 GMT
+                    ETag: W/"2-l9Fw4VUO7kr8CvBlt4zaMC...
+Forms             : {}
+Headers           : {[Connection, keep-alive], [Keep-Alive, timeout=5], [Content-Length, 2], [Content-Type, application/json; charset=utf-8]...}
+Images            : {}
+InputFields       : {}
+Links             : {}
+ParsedHtml        : System.__ComObject
+RawContentLength  : 2
 
-#### Створити категорію
-```bash
-curl -X POST http://localhost:3000/api/categories \
-  -H "Content-Type: application/json" \
-  -d '{"name": "Electronics", "description": "Gadgets and devices"}'
-```
 
-#### Створити продукт
-```bash
-curl -X POST http://localhost:3000/api/products \
-  -H "Content-Type: application/json" \
-  -d '{"name": "iPhone 15", "price": 999.99, "stock": 50, "categoryId": 1}'
-```
-
-#### Отримати всі продукти
-```bash
-curl http://localhost:3000/api/products
-```
-
-### Важливі налаштування
-- `synchronize: false` - схема бази даних контролюється виключно міграціями
-- Міграції запускаються автоматично при старті (`migrationsRun: true`)
-- Entity: Category та Product зі зв'язком ManyToOne
