@@ -72,14 +72,15 @@ http://localhost:3000/api/docs
 ```
  
 ### Приклад логів (LoggingInterceptor)
-```![alt text](image-3.png)
+![alt text](image-5.png)
 
 <вивід docker compose logs з рядками [HTTP] GET /api/products ...>
-```
+
  
 ### Тест помилки з traceId
-```![alt text](image-4.png)
+
+![alt text](image-8.png)
 
 <вивід curl GET /api/products/999>
-```
+
 
