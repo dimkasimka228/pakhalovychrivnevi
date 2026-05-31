@@ -20,17 +20,13 @@ __decorate([
     __metadata("design:type", Number)
 ], Category.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'varchar', length: 255, unique: true }),
+    (0, typeorm_1.Column)({ type: 'varchar', length: 255 }),
     __metadata("design:type", String)
 ], Category.prototype, "name", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'text', nullable: true }),
     __metadata("design:type", String)
 ], Category.prototype, "description", void 0);
-__decorate([
-    (0, typeorm_1.CreateDateColumn)({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' }),
-    __metadata("design:type", Date)
-], Category.prototype, "createdAt", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => product_entity_1.Product, (product) => product.category),
     __metadata("design:type", Array)

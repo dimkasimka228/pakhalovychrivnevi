@@ -3,8 +3,10 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Category } from './categories/category.entity';
 import { Product } from './products/product.entity';
+import { User } from './users/user.entity';
 import { CategoriesModule } from './categories/categories.module';
 import { ProductsModule } from './products/products.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -16,13 +18,14 @@ import { ProductsModule } from './products/products.module';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      entities: [Category, Product],
-      synchronize: false, // ВИКЛЮЧЕНО для балів
-      migrationsRun: true, // Автозапуск міграцій
+      entities: [Category, Product, User],
+      synchronize: false,
+      migrationsRun: true,
       migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
     }),
     CategoriesModule,
     ProductsModule,
+    AuthModule,
   ],
 })
 export class AppModule {}

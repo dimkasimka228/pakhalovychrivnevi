@@ -7,10 +7,7 @@ export declare class CategoriesController {
     create(body: {
         name: string;
         description?: string;
-    }): Promise<import("./category.entity").Category>;
-    update(id: number, body: Partial<{
-        name: string;
-        description: string;
-    }>): Promise<import("./category.entity").Category>;
-    remove(id: number): Promise<void>;
+    }): Promise<import("./category.entity").Category[]>;
+    update(id: number, body: any): Promise<import("typeorm").UpdateResult>;
+    remove(id: number): Promise<import("typeorm").DeleteResult>;
 }

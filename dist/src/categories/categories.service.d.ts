@@ -1,11 +1,11 @@
 import { Repository } from 'typeorm';
 import { Category } from './category.entity';
 export declare class CategoriesService {
-    private readonly categoryRepo;
-    constructor(categoryRepo: Repository<Category>);
+    private categoriesRepository;
+    constructor(categoriesRepository: Repository<Category>);
     findAll(): Promise<Category[]>;
     findOne(id: number): Promise<Category>;
-    create(data: Partial<Category>): Promise<Category>;
-    update(id: number, data: Partial<Category>): Promise<Category>;
-    remove(id: number): Promise<void>;
+    create(categoryData: any): Promise<Category[]>;
+    update(id: number, categoryData: any): Promise<import("typeorm").UpdateResult>;
+    remove(id: number): Promise<import("typeorm").DeleteResult>;
 }

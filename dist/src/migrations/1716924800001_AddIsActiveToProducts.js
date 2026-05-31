@@ -5,13 +5,13 @@ class AddIsActiveToProducts1716924800001 {
     async up(queryRunner) {
         await queryRunner.query(`
       ALTER TABLE "products"
-      ADD "isActive" boolean NOT NULL DEFAULT true
+      ADD COLUMN IF NOT EXISTS "isActive" boolean DEFAULT true
     `);
     }
     async down(queryRunner) {
         await queryRunner.query(`
       ALTER TABLE "products"
-      DROP COLUMN "isActive"
+      DROP COLUMN IF EXISTS "isActive"
     `);
     }
 }

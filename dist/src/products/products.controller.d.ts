@@ -10,7 +10,7 @@ export declare class ProductsController {
         price: number;
         stock?: number;
         categoryId?: number;
-    }): Promise<any>;
-    update(id: number, body: any): Promise<any>;
-    remove(id: number): Promise<import("./product.entity").Product>;
+    }): Promise<import("./product.entity").Product[]>;
+    update(id: number, body: any): Promise<import("typeorm").UpdateResult>;
+    remove(id: number): Promise<import("typeorm").DeleteResult>;
 }

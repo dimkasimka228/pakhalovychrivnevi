@@ -18,33 +18,24 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const category_entity_1 = require("./category.entity");
 let CategoriesService = class CategoriesService {
-    constructor(categoryRepo) {
-        this.categoryRepo = categoryRepo;
+    constructor(categoriesRepository) {
+        this.categoriesRepository = categoriesRepository;
     }
-    async findAll() {
-        return this.categoryRepo.find();
+    findAll() {
+        return this.categoriesRepository.find();
     }
-    async findOne(id) {
-        const category = await this.categoryRepo.findOne({
-            where: { id },
-        });
-        if (!category) {
-            throw new common_1.NotFoundException(`Category #${id} not found`);
-        }
-        return category;
+    findOne(id) {
+        return this.categoriesRepository.findOne({ where: { id } });
     }
-    async create(data) {
-        const category = this.categoryRepo.create(data);
-        return this.categoryRepo.save(category);
+    create(categoryData) {
+        const category = this.categoriesRepository.create(categoryData);
+        return this.categoriesRepository.save(category);
     }
-    async update(id, data) {
-        const category = await this.findOne(id);
-        Object.assign(category, data);
-        return this.categoryRepo.save(category);
+    update(id, categoryData) {
+        return this.categoriesRepository.update(id, categoryData);
     }
-    async remove(id) {
-        const category = await this.findOne(id);
-        await this.categoryRepo.remove(category);
+    remove(id) {
+        return this.categoriesRepository.delete(id);
     }
 };
 exports.CategoriesService = CategoriesService;

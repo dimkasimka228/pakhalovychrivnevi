@@ -18,33 +18,24 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const product_entity_1 = require("./product.entity");
 let ProductsService = class ProductsService {
-    constructor(productRepo) {
-        this.productRepo = productRepo;
+    constructor(productsRepository) {
+        this.productsRepository = productsRepository;
     }
     findAll() {
-        return this.productRepo.find({ relations: { category: true } });
+        return this.productsRepository.find();
     }
-    async findOne(id) {
-        const product = await this.productRepo.findOne({
-            where: { id },
-            relations: { category: true },
-        });
-        if (!product) {
-            throw new common_1.NotFoundException(`Product with ID ${id} not found`);
-        }
-        return product;
+    findOne(id) {
+        return this.productsRepository.findOne({ where: { id } });
     }
-    create(data) {
-        return this.productRepo.save(data);
+    create(productData) {
+        const product = this.productsRepository.create(productData);
+        return this.productsRepository.save(product);
     }
-    async update(id, data) {
-        const product = await this.findOne(id);
-        const updatedProduct = Object.assign(product, data);
-        return this.productRepo.save(updatedProduct);
+    update(id, productData) {
+        return this.productsRepository.update(id, productData);
     }
-    async remove(id) {
-        const product = await this.findOne(id);
-        return this.productRepo.remove(product);
+    remove(id) {
+        return this.productsRepository.delete(id);
     }
 };
 exports.ProductsService = ProductsService;

@@ -1,0 +1,11 @@
+export declare enum UserRole {
+    USER = "user",
+    ADMIN = "admin"
+}
+export declare class User {
+    id: number;
+    username: string;
+    password: string;
+    role: UserRole;
+    createdAt: Date;
+}
