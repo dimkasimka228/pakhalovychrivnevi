@@ -1,21 +1,52 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { AllExceptionsFilter } from './common/filters/http-exception.filter';
+import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
+import { TransformInterceptor } from './common/interceptors/transform.interceptor';
+import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   
-  // Enable global validation pipe
-  app.useGlobalPipes(new ValidationPipe({
-    whitelist: true,
-    forbidNonWhitelisted: true,
-    transform: true,
-  }));
+  // Global pipes
+  app.useGlobalPipes(new ValidationPipe());
   
-  // Додаємо || '3000', щоб уникнути помилки типу undefined
-  const port = process.env.APP_PORT || '3000';
+  // Global filters
+  app.useGlobalFilters(new AllExceptionsFilter());
   
-  await app.listen(parseInt(port, 10));
-  console.log(`Application is running on: http://localhost:${port}`);
+  // Global interceptors
+  app.useGlobalInterceptors(
+    new LoggingInterceptor(),
+    new TransformInterceptor(),
+    new TimeoutInterceptor(),
+  );
+  
+  // Swagger configuration
+  const config = new DocumentBuilder()
+    .setTitle('E-commerce API')
+    .setDescription('API documentation for e-commerce application with authentication')
+    .setVersion('1.0')
+    .addTag('auth', 'Authentication endpoints')
+    .addTag('categories', 'Category management')
+    .addTag('products', 'Product management')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'JWT',
+        description: 'Enter JWT token',
+        in: 'header',
+      },
+      'JWT-auth',
+    )
+    .build();
+  
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api/docs', app, document);
+  
+  await app.listen(3000);
 }
 bootstrap();
