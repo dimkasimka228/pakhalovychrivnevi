@@ -64,11 +64,12 @@ PONG>
 
 <вивід docker compose logs app (ключові рядки запуску)>
 ```
-Технічні примітки
-Dockerfile використовує node:20-alpine (легший образ ~170MB) з глобально встановленим @nestjs/cli.
-PostgreSQL підключено через TypeORM (@nestjs/typeorm, typeorm, pg), synchronize: true — лише для розробки.
-Redis підключено через CacheModule (@nestjs/cache-manager). Оскільки в проекті використовується cache-manager v7, store налаштовано через @keyv/redis (createKeyv(...)) — це актуальний спосіб підключення Redis для NestJS 11, що замінює застарілий cache-manager-redis-yet.
-depends_on з condition: service_healthy гарантує, що app стартує лише після того, як postgres і redis стали healthy.
+## Технічні примітки
+
+- **Dockerfile** використовує `node:20-alpine` (легший образ ~170MB) з глобально встановленим `@nestjs/cli`.
+- **PostgreSQL** підключено через TypeORM (`@nestjs/typeorm`, `typeorm`, `pg`), `synchronize: true` — лише для розробки.
+- **Redis** підключено через CacheModule (`@nestjs/cache-manager`). Оскільки в проекті використовується `cache-manager` v7, store налаштовано через `@keyv/redis` (`createKeyv(...)`) — це актуальний спосіб підключення Redis для NestJS 11, що замінює застарілий `cache-manager-redis-yet`.
+- `depends_on` з `condition: service_healthy` гарантує, що app стартує лише після того, як postgres і redis стали healthy.
 
 docker --version
 Docker version 27.4.1, build b9d17ea
